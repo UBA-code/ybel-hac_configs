@@ -14,12 +14,12 @@ spec:
   sourceRepos:
   - '*'
 
-  # Only permit applications to deploy to the guestbook namespace in the same cluster
+  # Only permit applications to deploy to the dev namespace in the same cluster
   # Destination clusters can be identified by 'server', 'name', or both.
   destinations:
   - namespace: dev
     server: https://kubernetes.default.svc
-    name: in-cluster
+    name: k3s-default
 
 ---
 
@@ -29,14 +29,14 @@ metadata:
   name: argocd-app
   namespace: argocd
 spec:
-  project: default
+  project: development
   source:
     repoURL: https://github.com/UBA-code/ybel-hac_configs
     targetRevision: HEAD
     path: dev
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: dev
   syncPolicy:
     automated:
       selfHeal: true
